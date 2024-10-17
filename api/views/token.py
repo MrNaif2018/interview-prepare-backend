@@ -81,8 +81,7 @@ async def create_token(
         user, token = auth_data
     user = await validate_credentials(user, token_data)
     token_data = token_data.model_dump()
-    role = await utils.database.get_object(models.Role, user.role, raise_exception=False)
-    utils.authorization.check_permissions(user, token, role, token_data["scopes"])
+    utils.authorization.check_permissions(user, token, token_data["scopes"])
     token_data = schemes.CreateDBToken(**token_data, user_id=user.id).model_dump()
     return await create_token_normal(token_data)
 
