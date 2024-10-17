@@ -1,0 +1,28 @@
+services:
+  backend:
+    depends_on:
+      - database
+    links:
+      - database
+    restart: unless-stopped
+    build: .
+    command: bash -c "alembic upgrade head && gunicorn -c gunicorn.conf.py main:app"
+    environment:
+      DB_HOST: database
+    ports:
+      - "8000:8000"
+  database:
+    restart: unless-stopped
+    image: postgres:17-alpine
+    command:
+      - -c
+      - random_page_cost=1.0
+    environment:
+      POSTGRES_DB: interviewprepare
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+volumes:
+  dbdata: null

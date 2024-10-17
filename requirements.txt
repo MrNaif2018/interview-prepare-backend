@@ -1,0 +1,17 @@
+alembic
+black
+email-validator
+fastapi
+flake8
+gino[pg]==1.1.0rc1
+gunicorn
+isort
+packaging
+psycopg2-binary
+pwdlib[bcrypt]
+pydantic-settings
+python-dateutil
+python-dotenv
+python-multipart
+sqlalchemy<1.4
+uvicorn[standard]
