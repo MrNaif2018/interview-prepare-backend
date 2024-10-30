@@ -113,6 +113,36 @@ class DisplayUser(DisplayModel, BaseUser):
     id: str
 
 
+# Questions
+
+
+class Difficulty(StrEnum):
+    EASY = "easy"
+    MEDIUM = "medium"
+    HARD = "hard"
+
+
+class CreateQuestion(CreateModel, CreatedMixin):
+    name: str
+    question: str
+    options: list[str]
+    answer: str
+    difficulty: Difficulty
+    topic: str
+    company: str
+    hints: list[str]
+    solutions: list = Field([], json_schema_extra={"hidden": True})
+    comments: list = Field([], json_schema_extra={"hidden": True})
+
+
+class UpdateQuestion(UpdateModel, CreateQuestion):
+    pass
+
+
+class DisplayQuestion(DisplayModel, UpdateQuestion):
+    id: str
+
+
 # Tokens
 class HTTPCreateToken(CreatedMixin):
     scopes: list[str] = []

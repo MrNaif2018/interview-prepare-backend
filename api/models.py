@@ -236,6 +236,23 @@ class User(BaseModel):
         return kwargs
 
 
+class Question(BaseModel):
+    __tablename__ = "questions"
+
+    id = Column(Text, primary_key=True, index=True)
+    name = Column(Text)
+    question = Column(Text)
+    options = Column(ARRAY(Text))
+    answer = Column(Text)
+    difficulty = Column(Text)
+    topic = Column(Text)
+    company = Column(Text)
+    hints = Column(ARRAY(Text))
+    solutions = Column(ARRAY(Text))
+    comments = Column(JSON)
+    created = Column(DateTime(True), nullable=False)
+
+
 class Setting(BaseModel):
     __tablename__ = "settings"
 
